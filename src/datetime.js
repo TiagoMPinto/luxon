@@ -1651,10 +1651,7 @@ export default class DateTime {
 
     const ext = format === "extended";
 
-    let c = toISODate(this, ext);
-    c += "T";
-    c += toISOTime(this, ext, suppressSeconds, suppressMilliseconds, includeOffset, extendedZone);
-    return c;
+    return toISODate(this, ext) + "T" + toISOTime(this, ext, suppressSeconds, suppressMilliseconds, includeOffset, extendedZone);
   }
 
   /**
