@@ -197,17 +197,13 @@ function toTechFormat(dt, format, allowZ = true) {
 function toISODate(o, extended) {
   const longFormat = o.c.year > 9999 || o.c.year < 0;
   let c = "";
-  if (longFormat && o.c.year >= 0) c += "+";
-  c += padStart(o.c.year, longFormat ? 6 : 4);
+  if (longFormat && o.c.year >= 0) c = c + "+";
+  c = c + padStart(o.c.year, longFormat ? 6 : 4);
 
   if (extended) {
-    c += "-";
-    c += padStart(o.c.month);
-    c += "-";
-    c += padStart(o.c.day);
+    c = c + "-" + padStart(o.c.month) + "-" + padStart(o.c.day);
   } else {
-    c += padStart(o.c.month);
-    c += padStart(o.c.day);
+    c = c + padStart(o.c.month) + padStart(o.c.day);
   }
   return c;
 }
@@ -222,42 +218,34 @@ function toISOTime(
 ) {
   let c = padStart(o.c.hour);
   if (extended) {
-    c += ":";
-    c += padStart(o.c.minute);
+    c = c + ":" + padStart(o.c.minute);
     if (o.c.millisecond !== 0 || o.c.second !== 0 || !suppressSeconds) {
-      c += ":";
+      c = c + ":";
     }
   } else {
-    c += padStart(o.c.minute);
+    c = c + padStart(o.c.minute);
   }
 
   if (o.c.millisecond !== 0 || o.c.second !== 0 || !suppressSeconds) {
-    c += padStart(o.c.second);
+    c = c + padStart(o.c.second);
 
     if (o.c.millisecond !== 0 || !suppressMilliseconds) {
-      c += ".";
-      c += padStart(o.c.millisecond, 3);
+      c = c + "." + padStart(o.c.millisecond, 3);
     }
   }
 
   if (includeOffset) {
     if (o.isOffsetFixed && o.offset === 0 && !extendedZone) {
-      c += "Z";
+      c = c + "Z";
     } else if (o.o < 0) {
-      c += "-";
-      c += padStart(Math.trunc(-o.o / 60));
-      c += ":";
-      c += padStart(Math.trunc(-o.o % 60));
+      c = c + "-" + padStart(Math.trunc(-o.o / 60)) + ":" +  padStart(Math.trunc(-o.o % 60));
     } else {
-      c += "+";
-      c += padStart(Math.trunc(o.o / 60));
-      c += ":";
-      c += padStart(Math.trunc(o.o % 60));
+      c = c + "+" + padStart(Math.trunc(o.o / 60)) + ":" + padStart(Math.trunc(o.o % 60));
     }
   }
 
   if (extendedZone) {
-    c += "[" + o.zone.ianaName + "]";
+    c = c + "[" + o.zone.ianaName + "]";
   }
   return c;
 }
